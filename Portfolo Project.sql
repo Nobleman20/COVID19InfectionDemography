@@ -1,9 +1,10 @@
---Select *
---from CovidDeaths
---Order by 3,4
+Select *
+from CovidDeaths
+Order by 3,4
 
---Select *
---from CovidVaccinations
+Select *
+from CovidVaccinations
+
 
 --SELECT DATA WE ARE GOIN TO BE USING
 
@@ -21,19 +22,20 @@ where location like 'Nigeria'
 Order by 1,2
 
 
---LOOKING AT TOTAL CASES vs population
+--LOOKING AT TOTAL CASES vs POPULATION (by country)
 
 Select location, population, Max(total_cases) as HighestInfectionCount, Max((total_cases/population))*100 as PercentagePopulationInfected
 from CovidDeaths
 where continent is not null
---where location like 'Nigeria'
 Group by Location, Population
 Order by PercentagePopulationInfected desc
+
+
+--LOOKING AT TOTAL CASES vs POPULATION (by continent)
 
 Select continent, Max(cast(total_deaths as int)) as TotalDeathCount
 from CovidDeaths
 where continent is not null
---where location like 'Nigeria'
 Group by continent
 Order by TotalDeathCount desc
 
@@ -43,8 +45,6 @@ Order by TotalDeathCount desc
 Select Sum(new_cases) as TotalCases, Sum(Cast(new_deaths as int)) as TotalDeaths, Sum(cast(new_deaths as int))/Sum(new_cases)*100 as DeathPercentage
 from CovidDeaths
 where continent is not null
---where location like 'Nigeria'
---Group by date
 Order by 1,2
 
 
